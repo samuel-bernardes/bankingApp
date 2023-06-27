@@ -27,25 +27,24 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
-                <configuration> 
+                <configuration>
                     <release>11</release>
-                    <source>src/modules</source>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.6</version>
-                    <executions>
-                        <execution>
-                            <!-- Default configuration for running -->
-                            <!-- Usage: mvn clean javafx:run -->
-                            <id>default-cli</id>
-                            <configuration>
-                                <mainClass>banking.App</mainClass>
-                            </configuration>
-                        </execution>
-                    </executions>
+                <executions>
+                    <execution>
+                        <!-- Default configuration for running -->
+                        <!-- Usage: mvn clean javafx:run -->
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>banking.App</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
