@@ -1,7 +1,6 @@
 package classes.accounts;
 
 import classes.abstractClass.Account;
-
 public class SavingAccount extends Account {
 
     private final double incomeBonus;

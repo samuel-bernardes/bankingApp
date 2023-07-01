@@ -18,6 +18,10 @@ public abstract class Account {
         this.accountId = accountId;
     }
 
+    public static void setAccNumber(int accNumber) {
+        Account.accNumber = accNumber;
+    }
+
     public static int getAccNumber() {
         return accNumber;
     }

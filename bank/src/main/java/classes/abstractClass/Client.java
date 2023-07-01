@@ -11,6 +11,7 @@ public abstract class Client {
     private String password;
     private String registerDate;
     private String adress;
+    private Account accounts;
 
     private static Random random = new Random();
 
