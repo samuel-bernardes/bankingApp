@@ -40,14 +40,14 @@ public class FileService {
             if(client instanceof LegalPerson){
                 type = "LegalPerson";
                 LegalPerson legalP = (LegalPerson)client;
-                writer.format("%s;%s;%s;%s;%s;%s;%n", type,
+                writer.format("%s;%s;%s;%s;%s;%s;%s;%n", type,
                     legalP.getFullName(), legalP.getAdress(), legalP.getEmail(), legalP.getPassword(), 
                     legalP.getCnpj(), legalP.getFantasyName());
             }
             else{
                 type = "NaturalPerson";
                 NaturalPerson natP = (NaturalPerson)client;
-                writer.format("%s;%s;%s;%s;%s;%n", type,
+                writer.format("%s;%s;%s;%s;%s;%s;%n", type,
                     natP.getFullName(), natP.getAdress(), natP.getEmail(), natP.getPassword(), 
                     natP.getCpf());
             }
