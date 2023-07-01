@@ -1,16 +1,13 @@
 package classes.clients;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import classes.abstractClass.Client;
 
 public class NaturalPerson extends Client {
 
     private String cpf;
 
-    public NaturalPerson(String fullName, String address, String cpf, String fantasyName) {
-        super(fullName, address);
+    public NaturalPerson(String fullName, String address, String cpf, String fantasyName, String email, String password) {
+        super(fullName, address, password, email);
         this.cpf = cpf;
     }
 
