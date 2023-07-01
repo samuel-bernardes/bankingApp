@@ -2,10 +2,13 @@ package classes.accounts;
 
 import classes.abstractClass.Account;
 
-public class CurrentAccount extends Account {
+public class CheckingAccount extends Account {
 
-    public CurrentAccount(String agencyId, String accountId) {
+    private final double manageTax;
+
+    public CheckingAccount(String agencyId, String accountId) {
         super(agencyId, accountId);
+        manageTax = 0.05;
     }
 
     @Override
@@ -18,4 +21,7 @@ public class CurrentAccount extends Account {
         this.setBalance(this.getBalance() - amount);
     }
 
+    public double getManageTax() {
+        return manageTax;
+    }
 }
