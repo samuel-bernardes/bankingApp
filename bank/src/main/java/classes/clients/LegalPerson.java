@@ -2,16 +2,14 @@ package classes.clients;
 
 import classes.abstractClass.Client;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class LegalPerson extends Client {
 
     private String cnpj;
     private String fantasyName;
 
-    public LegalPerson(String fullName, String address, String cnpj, String fantasyName) {
-        super(fullName, address);
+    public LegalPerson(String fullName, String address, String cnpj, String fantasyName, String email,
+            String password) {
+        super(fullName, address, password, email);
         this.cnpj = cnpj;
         this.fantasyName = fantasyName;
     }
