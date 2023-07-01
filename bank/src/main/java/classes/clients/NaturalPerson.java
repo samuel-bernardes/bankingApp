@@ -6,7 +6,7 @@ public class NaturalPerson extends Client {
 
     private String cpf;
 
-    public NaturalPerson(String fullName, String address, String cpf, String fantasyName, String email, String password) {
+    public NaturalPerson(String fullName, String address, String email, String password, String cpf) {
         super(fullName, address, password, email);
         this.cpf = cpf;
     }

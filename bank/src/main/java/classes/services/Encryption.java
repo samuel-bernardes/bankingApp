@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class Encryption {
     private static final String ALGORITHM = "AES";
-    private static final String SECRET_KEY = "mysecretkey12345"; // Chave secreta para criptografia AES
+    private static final String SECRET_KEY = "b@nKingApp"; // Chave secreta para criptografia AES
 
     public static String encrypt(String input) throws Exception {
         SecretKeySpec keySpec = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), ALGORITHM);
