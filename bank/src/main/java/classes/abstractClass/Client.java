@@ -11,7 +11,7 @@ public abstract class Client {
     private String password;
     private String registerDate;
     private String adress;
-    private Account accounts;
+    private Account account;
 
     private static Random random = new Random();
 
@@ -69,6 +69,14 @@ public abstract class Client {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
 }
