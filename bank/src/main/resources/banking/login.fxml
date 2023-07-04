@@ -51,12 +51,12 @@
                      </font>
                   </Label>
                   <TextField fx:id="fieldLogin" GridPane.rowIndex="1" />
-                  <TextField GridPane.rowIndex="3" />
-                  <Label fx:id="fieldPassword" text="Senha:" GridPane.rowIndex="2">
+                  <Label text="Senha:" GridPane.rowIndex="2">
                      <font>
                         <Font name="DejaVu Sans Condensed Bold" size="15.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="fieldPassword" GridPane.rowIndex="3" />
                   <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#clickedLogin" prefHeight="24.0" prefWidth="332.0" text="Entrar" GridPane.rowIndex="4">
                      <font>
                         <Font name="DejaVu Sans Condensed Bold" size="15.0" />

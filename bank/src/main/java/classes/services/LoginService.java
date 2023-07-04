@@ -20,6 +20,7 @@ public class LoginService {
 
     public static Client logUserIn(String email, String password) {
         try {
+            password = Encryption.encrypt(password);
             fileService.openFileForReading();
             Client client = fileService.loginAccountThroughFile(email, password);
             fileService.closeFileRead();

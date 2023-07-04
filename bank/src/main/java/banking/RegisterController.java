@@ -35,7 +35,7 @@ public class RegisterController {
 
         App.setRoot("login");
 
-        System.out.println("teste " + fieldAdress.getText());
+        System.out.println("teste " + fieldPasswordRegister.getText());
     }
 
 }

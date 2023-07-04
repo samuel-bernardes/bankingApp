@@ -17,11 +17,11 @@ public class LoginController {
     private TextField fieldLogin;
 
     @FXML
-    private Label fieldPassword;
+    private TextField fieldPassword;
 
     @FXML
     void clickedLogin(ActionEvent event) {
-        System.out.println("testeLogin: " + LoginService.logUserIn(fieldLogin.getText(), Encryption.encrypt(fieldPassword.getText())));
+        System.out.println("testeLogin: " + LoginService.logUserIn(fieldLogin.getText(), fieldPassword.getText()));
     }
 
 }

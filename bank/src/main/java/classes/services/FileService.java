@@ -2,6 +2,7 @@ package classes.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Formatter;
 import java.util.NoSuchElementException;
@@ -15,6 +16,7 @@ import classes.clients.NaturalPerson;
 
 public class FileService {
     private File file;
+    private FileWriter fileWriter;
     private Formatter writer;
     private Scanner reader;
 
@@ -23,8 +25,12 @@ public class FileService {
             file = new File("arquivoTexto.txt");
             if (!file.exists()) {
                 file.createNewFile();
+                writer = new Formatter(file);
             }
-            writer = new Formatter(file);
+            else{
+                fileWriter = new FileWriter("arquivoTexto.txt", true);
+                writer = new Formatter(fileWriter);
+            }
         } catch (IOException e) {
             System.err.println("Erro ao criar o arquivo!");
             e.printStackTrace();
@@ -74,7 +80,7 @@ public class FileService {
                 String clientString = reader.nextLine();
                 String[] clientArray = clientString.split(";");
                 if (clientArray[3].equals(email)) {
-                    if (!(clientArray[4].equals(Encryption.decrypt(password)))) {
+                    if (!(clientArray[4].equals(password))) {
                         throw new PasswordNotTheSame();
                     }
 
