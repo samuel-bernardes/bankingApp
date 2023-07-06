@@ -8,10 +8,7 @@ import javafx.scene.control.Label;
 public class HomePageController {
 
     @FXML
-    private Button buttonDepositar;
-
-    @FXML
-    private Button buttonSacar;
+    private Button buttonSacarDepositar;
 
     @FXML
     private Button buttonTranferir;
@@ -23,12 +20,7 @@ public class HomePageController {
     private Label labelSaldoAtual;
 
     @FXML
-    void clickedDepositar(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickedSacar(ActionEvent event) {
+    void clickedSacarDepositar(ActionEvent event) {
 
     }
 
