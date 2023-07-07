@@ -1,5 +1,6 @@
 package classes.services;
 
+import banking.App;
 import classes.Exceptions.ClientNotFound;
 import classes.Exceptions.FieldIsEmpty;
 import classes.Exceptions.PasswordNotTheSame;
@@ -32,20 +33,12 @@ public class LoginService {
             fileService.closeFileRead();
             return client;
         } catch (ClientNotFound c) {
-            showAlert("Erro de Login", "Cliente não encontrado.");
+            App.showAlert("Erro de Login", "Cliente não encontrado.");
         } catch (PasswordNotTheSame p) {
-            showAlert("Erro de Login", "Senha incorreta.");
+            App.showAlert("Erro de Login", "Senha incorreta.");
         }
 
         return null;
-    }
-
-    private static void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     private static boolean checkIfAnyFieldIsEmpty(Client client) {

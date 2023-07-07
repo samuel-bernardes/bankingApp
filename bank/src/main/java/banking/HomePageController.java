@@ -36,13 +36,13 @@ public class HomePageController implements Initializable {
     private Client client;
 
     @FXML
-    void clickedSacarDepositar(ActionEvent event) {
-
+    void clickedSacarDepositar(ActionEvent event) throws Exception {
+        App.setRoot("take&deposit", 420, 500);
     }
 
     @FXML
-    void clickedTransferir(ActionEvent event) {
-
+    void clickedTransferir(ActionEvent event) throws Exception {
+        App.setRoot("transfer", 420, 500);
     }
 
     private void showAccountCreationDialog() {
@@ -61,7 +61,7 @@ public class HomePageController implements Initializable {
         radioButtonCorrente.setToggleGroup(toggleGroup);
         radioButtonPoupanca.setToggleGroup(toggleGroup);
 
-        Button createButton = new Button("Criar Conta");
+        Button createButton = new Button("Criar Conta Bancária");
         createButton.setOnAction(event -> {
             String accountType = "";
             if (radioButtonCorrente.isSelected()) {
@@ -70,17 +70,14 @@ public class HomePageController implements Initializable {
                 accountType = "Conta Poupança";
             }
 
-            // TODO: Lógica para criar a nova conta com o tipo selecionado
-            if(accountType.equals("Conta Corrente")){
+            if (accountType.equals("Conta Corrente")) {
                 client.setAccount(new CheckingAccount("0001", "00000001"));
-            }
-            else{
+            } else {
                 client.setAccount(new SavingAccount("0001", "00000001"));
             }
-            // ------------------------------------------------------------------
-            
-            dialog.setResult(accountType); // Definir o resultado do diálogo
-            dialog.close(); // Fechar o diálogo após criar a conta
+
+            dialog.setResult(accountType);
+            dialog.close();
         });
 
         dialog.setOnCloseRequest(event -> {
@@ -98,7 +95,7 @@ public class HomePageController implements Initializable {
         client = App.getLoggedInClient();
         labelNome.setText(client.getFullName());
         if (client.getAccount() != null) {
-            labelSaldoAtual.setText(Double.toString(client.getAccount().getBalance()));
+            labelSaldoAtual.setText("R$: " + Double.toString(client.getAccount().getBalance()));
         } else {
             labelSaldoAtual.setText("Zerado!");
             showAccountCreationDialog();

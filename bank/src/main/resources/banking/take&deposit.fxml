@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -47,7 +48,7 @@
                   <Font name="DejaVu Sans Condensed Bold" size="13.0" />
                </font>
             </Button>
-            <TextField fx:id="fieldPassword" promptText="Senha" GridPane.rowIndex="2" />
+            <PasswordField fx:id="fieldPassword" promptText="Senha" GridPane.rowIndex="2" />
             <GridPane>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

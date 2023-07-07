@@ -83,7 +83,5 @@ public class RegisterController {
         LoginService.registerUser(clientLogin);
 
         App.setRoot("login", 360, 540);
-
-        System.out.println("teste " + fieldPasswordRegister.getText());
     }
 }
