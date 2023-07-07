@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import classes.Exceptions.AccountNotFound;
 import classes.Exceptions.ClientNotFound;
 import classes.Exceptions.PasswordNotTheSame;
 import classes.abstractClass.Account;
