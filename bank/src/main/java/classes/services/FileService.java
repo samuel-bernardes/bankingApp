@@ -1,16 +1,23 @@
 package classes.services;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Formatter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import classes.Exceptions.AccountNotFound;
 import classes.Exceptions.ClientNotFound;
 import classes.Exceptions.PasswordNotTheSame;
+import classes.abstractClass.Account;
 import classes.abstractClass.Client;
+import classes.accounts.CheckingAccount;
+import classes.accounts.SavingAccount;
 import classes.clients.LegalPerson;
 import classes.clients.NaturalPerson;
 
@@ -38,7 +45,7 @@ public class FileService {
         }
     }
 
-    public void registerAccount(Client client) {
+    public void registerClient(Client client) {
         String type;
 
         try {
@@ -50,14 +57,73 @@ public class FileService {
         if (client instanceof LegalPerson) {
             type = "LegalPerson";
             LegalPerson legalP = (LegalPerson) client;
-            writer.format("%s;%s;%s;%s;%s;%s;%s;%n", type, legalP.getFullName(), legalP.getAdress(),
-                    legalP.getEmail(), legalP.getPassword(), legalP.getCnpj(), legalP.getFantasyName());
+            writer.format("%s;%s;%s;%s;%s;%s;%s;%n", type, legalP.getEmail(), legalP.getPassword(),
+                                legalP.getFullName(), legalP.getAdress(), legalP.getCnpj(), legalP.getFantasyName());
         } else {
             type = "NaturalPerson";
             NaturalPerson natP = (NaturalPerson) client;
-            writer.format("%s;%s;%s;%s;%s;%s;%n", type, natP.getFullName(), natP.getAdress(), natP.getEmail(),
-                    natP.getPassword(), natP.getCpf());
+            writer.format("%s;%s;%s;%s;%s;%s;%n", type, natP.getEmail(), natP.getPassword(), 
+                            natP.getFullName(), natP.getAdress(), natP.getCpf());
         }
+    }
+
+    private void deleteAccount(Client client){
+        File inputFile = new File("arquivoTexto.txt");
+        File tempFile = new File("tempFile.txt");
+
+        try{
+            BufferedReader rd = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter wr = new BufferedWriter(new FileWriter(tempFile));
+
+            String lineToRemove = client.getEmail();
+            String currentLine;
+
+            while((currentLine = rd.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                String[] clientArray = trimmedLine.split(";");
+                if(clientArray[1].equals(lineToRemove)) continue;
+                wr.write(currentLine + System.getProperty("line.separator"));
+            }
+            wr.close(); 
+            rd.close(); 
+            inputFile.delete();
+            tempFile.renameTo(inputFile);
+        }
+        catch(IOException e){
+
+        }
+    }
+
+    public void registerAccount(Client client){
+        deleteAccount(client);
+
+        openFileForWriting();
+        String type, accType;
+
+        if(client.getAccount() instanceof CheckingAccount){
+            accType = "CheckingAccount";
+        }
+        else{
+            accType = "SavingAccount";
+        }
+
+        if (client instanceof LegalPerson) {
+            type = "LegalPerson";
+            LegalPerson legalP = (LegalPerson) client;
+
+            writer.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%n", type, legalP.getEmail(), legalP.getPassword(),
+                                legalP.getFullName(), legalP.getAdress(), legalP.getCnpj(), legalP.getFantasyName(),
+                                accType, legalP.getAccount().getAccountId(), legalP.getAccount().getAgencyId(),
+                                legalP.getAccount().getBalance());
+        } else {
+            type = "NaturalPerson";
+            NaturalPerson natP = (NaturalPerson) client;
+            writer.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%n", type, natP.getEmail(), natP.getPassword(), 
+                            natP.getFullName(), natP.getAdress(), natP.getCpf(), accType,
+                            natP.getAccount().getAccountId(), natP.getAccount().getAgencyId(),
+                            natP.getAccount().getBalance());
+        }
+        closeFileWriter();
     }
 
     public void closeFileWriter() {
@@ -79,29 +145,96 @@ public class FileService {
             while (reader.hasNextLine()) {
                 String clientString = reader.nextLine();
                 String[] clientArray = clientString.split(";");
-                if (clientArray[3].equals(email)) {
-                    if (!(clientArray[4].equals(password))) {
+                if (clientArray[1].equals(email)) {
+                    if (!(clientArray[2].equals(password))) {
                         throw new PasswordNotTheSame();
                     }
-
                     Client client;
+                    Account acc;
                     if (clientArray[0].equals("LegalPerson")) {
-                        client = new LegalPerson(clientArray[1], clientArray[2], clientArray[3], clientArray[4],
+                        client = new LegalPerson(clientArray[3], clientArray[4], clientArray[1], clientArray[2],
                                 clientArray[5], clientArray[6]);
+                        
+                        if(clientArray.length > 7){
+                            if(clientArray[7].equals("CheckingAccount")){
+                                acc = new CheckingAccount(clientArray[8], clientArray[9]);
+                                acc.setBalance(Double.parseDouble(clientArray[10])); 
+                            }
+                            else{
+                                acc = new SavingAccount(clientArray[8], clientArray[9]);
+                                acc.setBalance(Double.parseDouble(clientArray[10]));
+                            }
+                        }
+                        else{
+                            acc = null;
+                        }    
                     } else {
-                        client = new NaturalPerson(clientArray[1], clientArray[2], clientArray[3], clientArray[4],
+                        client = new NaturalPerson(clientArray[3], clientArray[4], clientArray[1], clientArray[2],
                                 clientArray[5]);
+
+                        if(clientArray.length > 6){
+                            if(clientArray[6].equals("CheckingAccount")){
+                                acc = new CheckingAccount(clientArray[7], clientArray[8]);
+                                acc.setBalance(Double.parseDouble(clientArray[9])); 
+                            }
+                            else{
+                                acc = new SavingAccount(clientArray[7], clientArray[8]);
+                                acc.setBalance(Double.parseDouble(clientArray[9]));
+                            }
+                        }
+                        else{
+                            acc = null;
+                        }                 
                     }
+                    client.setAccount(acc);
                     return client;
-                } 
-                
+                }
             }
         } catch (NoSuchElementException e) {
             // TODO: Implementar tratamento adequado
         } catch (IllegalStateException e) {
             // TODO: Implementar tratamento adequado
-        } catch (Exception e) {
-            // TODO: Implementar tratamento adequado
+        }
+
+        throw new ClientNotFound();
+    }
+
+    public Client findClient(String email) throws ClientNotFound{
+        while (reader.hasNextLine()) {
+            String clientString = reader.nextLine();
+            String[] clientArray = clientString.split(";");
+            if (clientArray[1].equals(email)) {
+                Client client;
+                Account acc;
+
+                if (clientArray[0].equals("LegalPerson")) {
+                    client = new LegalPerson(clientArray[3], clientArray[4], clientArray[1], clientArray[2],
+                            clientArray[5], clientArray[6]);
+
+                    if(clientArray[7].equals("CheckingAccount")){
+                        acc = new CheckingAccount(clientArray[8], clientArray[9]);
+                        acc.setBalance(Double.parseDouble(clientArray[10])); 
+                    }
+                    else{
+                        acc = new SavingAccount(clientArray[8], clientArray[9]);
+                        acc.setBalance(Double.parseDouble(clientArray[10]));
+                    }
+                } else {
+                    client = new NaturalPerson(clientArray[3], clientArray[4], clientArray[1], clientArray[2],
+                            clientArray[5]);
+
+                    if(clientArray[6].equals("CheckingAccount")){
+                        acc = new CheckingAccount(clientArray[7], clientArray[8]);
+                        acc.setBalance(Double.parseDouble(clientArray[9])); 
+                    }
+                    else{
+                        acc = new SavingAccount(clientArray[7], clientArray[8]);
+                        acc.setBalance(Double.parseDouble(clientArray[9]));
+                    }
+                }
+                client.setAccount(acc);
+                return client;
+            }
         }
 
         throw new ClientNotFound();

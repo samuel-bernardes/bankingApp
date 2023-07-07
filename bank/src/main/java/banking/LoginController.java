@@ -25,6 +25,7 @@ public class LoginController {
     @FXML
     void clickedLogin(ActionEvent event) throws Exception {
         Client client = LoginService.logUserIn(fieldLogin.getText(), fieldPassword.getText());
+        System.out.println(client);
         if (client != null) {
             App.setLoggedInClient(client);
             App.setRoot("homePage", 420, 700);

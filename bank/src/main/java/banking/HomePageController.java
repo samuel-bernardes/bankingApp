@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import classes.abstractClass.Client;
+import classes.accounts.CheckingAccount;
+import classes.accounts.SavingAccount;
+import classes.services.LoginService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,9 +70,15 @@ public class HomePageController implements Initializable {
                 accountType = "Conta Poupança";
             }
 
-            // Lógica para criar a nova conta com o tipo selecionado
-            // ...
-
+            // TODO: Lógica para criar a nova conta com o tipo selecionado
+            if(accountType.equals("Conta Corrente")){
+                client.setAccount(new CheckingAccount("0001", "00000001"));
+            }
+            else{
+                client.setAccount(new SavingAccount("0001", "00000001"));
+            }
+            // ------------------------------------------------------------------
+            
             dialog.setResult(accountType); // Definir o resultado do diálogo
             dialog.close(); // Fechar o diálogo após criar a conta
         });
@@ -89,11 +98,11 @@ public class HomePageController implements Initializable {
         client = App.getLoggedInClient();
         labelNome.setText(client.getFullName());
         if (client.getAccount() != null) {
-
             labelSaldoAtual.setText(Double.toString(client.getAccount().getBalance()));
         } else {
             labelSaldoAtual.setText("Zerado!");
             showAccountCreationDialog();
+            LoginService.registerAccount(client);
         }
 
     }

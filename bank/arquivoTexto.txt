@@ -1,0 +1,2 @@
+NaturalPerson;ff;rdeAhUA51P/mvKYY6d7EAA==;ddd;11;234232;CheckingAccount;00000001;0001;0.0;
+LegalPerson;12;PUCZZZAN3oZZTDsAr54OgA==;fsdss;dddd;41411;d31;SavingAccount;00000001;0001;0.0;

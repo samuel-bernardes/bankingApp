@@ -16,8 +16,12 @@ public class LoginService {
             throw new FieldIsEmpty();
         }
         fileService.openFileForWriting();
-        fileService.registerAccount(client);
+        fileService.registerClient(client);
         fileService.closeFileWriter();
+    }
+
+    public static void registerAccount(Client client) {
+        fileService.registerAccount(client);
     }
 
     public static Client logUserIn(String email, String password) {
