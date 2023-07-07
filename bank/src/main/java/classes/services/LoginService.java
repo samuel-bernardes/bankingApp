@@ -4,6 +4,8 @@ import classes.Exceptions.ClientNotFound;
 import classes.Exceptions.FieldIsEmpty;
 import classes.Exceptions.PasswordNotTheSame;
 import classes.abstractClass.Client;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class LoginService {
 
@@ -26,14 +28,20 @@ public class LoginService {
             fileService.closeFileRead();
             return client;
         } catch (ClientNotFound c) {
-            // TODO: Implementação para tratamento de Cliente não encontrado
-            System.out.println("Cliente não encontrado.");
+            showAlert("Erro de Login", "Cliente não encontrado.");
         } catch (PasswordNotTheSame p) {
-            // TODO: Implementação para tratamento de senha incorreta
-            System.out.println("Senha incorreta.");
+            showAlert("Erro de Login", "Senha incorreta.");
         }
 
         return null;
+    }
+
+    private static void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private static boolean checkIfAnyFieldIsEmpty(Client client) {

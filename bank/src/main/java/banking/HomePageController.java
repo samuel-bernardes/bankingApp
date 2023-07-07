@@ -1,11 +1,22 @@
 package banking;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import classes.abstractClass.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 
-public class HomePageController {
+public class HomePageController implements Initializable {
 
     @FXML
     private Button buttonSacarDepositar;
@@ -19,6 +30,8 @@ public class HomePageController {
     @FXML
     private Label labelSaldoAtual;
 
+    private Client client;
+
     @FXML
     void clickedSacarDepositar(ActionEvent event) {
 
@@ -26,6 +39,62 @@ public class HomePageController {
 
     @FXML
     void clickedTransferir(ActionEvent event) {
+
+    }
+
+    private void showAccountCreationDialog() {
+        Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setTitle("Cadastro de Conta");
+        dialog.setHeaderText("Cadastro de Nova Conta");
+
+        VBox content = new VBox();
+        content.setSpacing(10);
+
+        RadioButton radioButtonCorrente = new RadioButton("Conta Corrente");
+        RadioButton radioButtonPoupanca = new RadioButton("Conta Poupança");
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        radioButtonCorrente.setToggleGroup(toggleGroup);
+        radioButtonPoupanca.setToggleGroup(toggleGroup);
+
+        Button createButton = new Button("Criar Conta");
+        createButton.setOnAction(event -> {
+            String accountType = "";
+            if (radioButtonCorrente.isSelected()) {
+                accountType = "Conta Corrente";
+            } else if (radioButtonPoupanca.isSelected()) {
+                accountType = "Conta Poupança";
+            }
+
+            // Lógica para criar a nova conta com o tipo selecionado
+            // ...
+
+            dialog.setResult(accountType); // Definir o resultado do diálogo
+            dialog.close(); // Fechar o diálogo após criar a conta
+        });
+
+        dialog.setOnCloseRequest(event -> {
+            dialog.close();
+        });
+
+        content.getChildren().addAll(radioButtonCorrente, radioButtonPoupanca, createButton);
+
+        dialog.getDialogPane().setContent(content);
+        dialog.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        client = App.getLoggedInClient();
+        labelNome.setText(client.getFullName());
+        if (client.getAccount() != null) {
+
+            labelSaldoAtual.setText(Double.toString(client.getAccount().getBalance()));
+        } else {
+            labelSaldoAtual.setText("Zerado!");
+            showAccountCreationDialog();
+        }
 
     }
 

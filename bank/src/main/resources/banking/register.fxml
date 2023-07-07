@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -72,7 +73,7 @@
                   </Label>
                   <TextField fx:id="fieldFullName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="fieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="fieldPasswordRegister" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <PasswordField fx:id="fieldPasswordRegister" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="fieldAdress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <RadioButton fx:id="buttonPessoaFisica" mnemonicParsing="false" onAction="#clickedPessoaFisica" prefHeight="18.0" prefWidth="121.0" text="Pessoa Física" />
                   <RadioButton fx:id="buttonPessoaJuridica" mnemonicParsing="false" onAction="#clickedPessoaJuridica" text="Pessoa Jurídica" GridPane.columnIndex="1" />

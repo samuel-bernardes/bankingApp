@@ -93,7 +93,8 @@ public class FileService {
                                 clientArray[5]);
                     }
                     return client;
-                }
+                } 
+                
             }
         } catch (NoSuchElementException e) {
             // TODO: Implementar tratamento adequado
