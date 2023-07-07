@@ -22,7 +22,7 @@ public class LoginService {
     }
 
     public static void registerAccount(Client client) {
-        fileService.registerAccount(client);
+        fileService.saveAccount(client);
     }
 
     public static Client logUserIn(String email, String password) {

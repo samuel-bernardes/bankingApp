@@ -92,7 +92,7 @@ public class FileService {
         }
     }
 
-    public void registerAccount(Client client){
+    public void saveAccount(Client client){
         deleteAccount(client);
 
         openFileForWriting();
@@ -197,11 +197,11 @@ public class FileService {
         throw new ClientNotFound();
     }
 
-    public Client findClient(String email) throws ClientNotFound{
+    public Client findClient(String accNumber) throws ClientNotFound{
         while (reader.hasNextLine()) {
             String clientString = reader.nextLine();
             String[] clientArray = clientString.split(";");
-            if (clientArray[1].equals(email)) {
+            if (clientArray[9].equals(accNumber) || clientArray[8].equals(accNumber)) {
                 Client client;
                 Account acc;
 

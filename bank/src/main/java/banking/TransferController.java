@@ -1,7 +1,9 @@
 package banking;
 
+import classes.Exceptions.ClientNotFound;
 import classes.abstractClass.Account;
 import classes.abstractClass.Client;
+import classes.services.AccountService;
 import classes.services.Encryption;
 import classes.services.FileService;
 import javafx.event.ActionEvent;
@@ -29,21 +31,18 @@ public class TransferController {
 
     @FXML
     void clickedTransfer(ActionEvent event) {
-        FileService fileService = new FileService();
 
         Client transferClient;
         try {
-            transferClient = fileService.findClient("null");
-            Account transferClientAccount = transferClient.getAccount();
+            transferClient = AccountService.findClient("00000002");
+            System.out.println("dd: "+transferClient);
             if (Encryption.encrypt(fieldPassword.getText()).equals(App.getLoggedInClient().getPassword())) {
-
-                transferClientAccount
-                        .setBalance(transferClientAccount.getBalance() + Double.valueOf(fieldValue.getText()));
+                AccountService.transferMoney(App.getLoggedInClient(), transferClient, Double.valueOf(fieldValue.getText()));
             } else {
                 App.showAlert("Senha incorreta!", "Digite sua senha corretamente para realizar a operação!");
             }
         } catch (Exception e) {
-
+            System.out.println(e.getStackTrace());
         }
     }
 
