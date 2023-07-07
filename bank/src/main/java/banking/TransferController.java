@@ -1,11 +1,8 @@
 package banking;
 
-import classes.Exceptions.ClientNotFound;
-import classes.abstractClass.Account;
 import classes.abstractClass.Client;
 import classes.services.AccountService;
 import classes.services.Encryption;
-import classes.services.FileService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

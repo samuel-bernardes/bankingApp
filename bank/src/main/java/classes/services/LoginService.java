@@ -5,8 +5,6 @@ import classes.Exceptions.ClientNotFound;
 import classes.Exceptions.FieldIsEmpty;
 import classes.Exceptions.PasswordNotTheSame;
 import classes.abstractClass.Client;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class LoginService {
 
