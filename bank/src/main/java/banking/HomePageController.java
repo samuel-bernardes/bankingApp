@@ -1,6 +1,9 @@
 package banking;
 
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import classes.abstractClass.Client;
@@ -18,13 +21,16 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
+/**
+ * Classe controladora para a Página Inicial.
+ */
 public class HomePageController implements Initializable {
 
     @FXML
     private Button buttonSacarDepositar;
 
     @FXML
-    private Button buttonTranferir;
+    private Button buttonTransferir;
 
     @FXML
     private Label labelNome;
@@ -34,16 +40,56 @@ public class HomePageController implements Initializable {
 
     private Client client;
 
+    /**
+     * Manipulador de eventos para o botão "Sacar/Depositar".
+     * Redireciona para a página "take&deposit".
+     *
+     * @param event O evento de clique do botão.
+     * @throws Exception Se ocorrer um erro durante a transição de página.
+     */
     @FXML
     void clickedSacarDepositar(ActionEvent event) throws Exception {
         App.setRoot("take&deposit", 420, 500);
     }
 
+    /**
+     * Manipulador de eventos para o botão "Transferir".
+     * Redireciona para a página "transfer".
+     *
+     * @param event O evento de clique do botão.
+     * @throws Exception Se ocorrer um erro durante a transição de página.
+     */
     @FXML
     void clickedTransferir(ActionEvent event) throws Exception {
         App.setRoot("transfer", 420, 500);
     }
 
+    /**
+     * Gera um número aleatório para a criação da conta.
+     *
+     * @return Um número aleatório formatado como uma string.
+     */
+    private String generateRandomNumber() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(99999999);
+        return String.format("%08d", randomNumber);
+    }
+
+    /**
+     * Formata um valor como moeda no formato brasileiro.
+     *
+     * @param valor O valor a ser formatado.
+     * @return O valor formatado como uma string.
+     */
+    private String formatarMoeda(double valor) {
+        Locale locale = new Locale("pt", "BR");
+        NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(locale);
+        return formatadorMoeda.format(valor);
+    }
+
+    /**
+     * Exibe um diálogo para a criação de uma nova conta bancaria.
+     */
     private void showAccountCreationDialog() {
         Dialog<String> dialog = new Dialog<>();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -69,10 +115,12 @@ public class HomePageController implements Initializable {
                 accountType = "Conta Poupança";
             }
 
+            String randomNumber = generateRandomNumber();
+
             if (accountType.equals("Conta Corrente")) {
-                client.setAccount(new CheckingAccount("0001", "00000001"));
+                client.setAccount(new CheckingAccount("0001", randomNumber));
             } else {
-                client.setAccount(new SavingAccount("0001", "00000001"));
+                client.setAccount(new SavingAccount("0001", randomNumber));
             }
 
             dialog.setResult(accountType);
@@ -94,13 +142,12 @@ public class HomePageController implements Initializable {
         client = App.getLoggedInClient();
         labelNome.setText(client.getFullName());
         if (client.getAccount() != null) {
-            labelSaldoAtual.setText("R$: " + Double.toString(client.getAccount().getBalance()));
+            labelSaldoAtual.setText(formatarMoeda(client.getAccount().getBalance()));
         } else {
             labelSaldoAtual.setText("Zerado!");
             showAccountCreationDialog();
             LoginService.registerAccount(client);
         }
-
     }
 
 }

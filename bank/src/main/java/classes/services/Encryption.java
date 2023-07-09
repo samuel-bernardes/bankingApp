@@ -15,7 +15,6 @@ public class Encryption {
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec);
             byte[] encryptedBytes = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
-            System.out.println("Encrypted: " + Base64.getEncoder().encodeToString(encryptedBytes));
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             System.err.println("Error during encryption: " + e.getMessage());

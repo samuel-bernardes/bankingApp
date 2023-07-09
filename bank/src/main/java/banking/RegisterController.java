@@ -11,6 +11,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
+/**
+ * Classe controladora para a tela de cadastro.
+ */
 public class RegisterController {
 
     @FXML
@@ -46,11 +49,25 @@ public class RegisterController {
     @FXML
     private PasswordField fieldPasswordRegister;
 
+    /**
+     * Manipulador de eventos para o botão "Login".
+     * Redireciona para a tela de login (login).
+     *
+     * @param event O evento de clique do botão.
+     * @throws Exception Se ocorrer um erro durante a transição de tela.
+     */
     @FXML
     void clickedLogin(ActionEvent event) throws Exception {
         App.setRoot("login", 360, 540);
     }
 
+    /**
+     * Manipulador de eventos para o botão "Pessoa Física".
+     * Seleciona a opção de pessoa física e atualiza a visibilidade dos campos
+     * correspondentes.
+     *
+     * @param event O evento de clique do botão.
+     */
     @FXML
     void clickedPessoaFisica(ActionEvent event) {
         buttonPessoaJuridica.setSelected(false);
@@ -59,6 +76,13 @@ public class RegisterController {
         fieldCPF.setVisible(true);
     }
 
+    /**
+     * Manipulador de eventos para o botão "Pessoa Jurídica".
+     * Seleciona a opção de pessoa jurídica e atualiza a visibilidade dos campos
+     * correspondentes.
+     *
+     * @param event O evento de clique do botão.
+     */
     @FXML
     void clickedPessoaJuridica(ActionEvent event) {
         buttonPessoaFisica.setSelected(false);
@@ -67,9 +91,17 @@ public class RegisterController {
         fieldNomeFantasia.setVisible(true);
     }
 
+    /**
+     * Manipulador de eventos para o botão "Registrar".
+     * Realiza o registro do usuário com base nas informações fornecidas e
+     * redireciona para a tela de login.
+     *
+     * @param event O evento de clique do botão.
+     * @throws Exception Se ocorrer um erro durante o registro do usuário ou a
+     *                   transição de tela.
+     */
     @FXML
     void clickedRegister(ActionEvent event) throws Exception {
-
         Client clientLogin;
 
         if (buttonPessoaJuridica.isSelected()) {

@@ -4,11 +4,8 @@ import classes.abstractClass.Account;
 
 public class CheckingAccount extends Account {
 
-    private final double manageTax;
-
     public CheckingAccount(String agencyId, String accountId) {
         super(agencyId, accountId);
-        manageTax = 0.05;
     }
 
     @Override
@@ -21,7 +18,4 @@ public class CheckingAccount extends Account {
         this.setBalance(this.getBalance() - amount);
     }
 
-    public double getManageTax() {
-        return manageTax;
-    }
 }

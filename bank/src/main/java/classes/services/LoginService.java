@@ -31,9 +31,9 @@ public class LoginService {
             fileService.closeFileRead();
             return client;
         } catch (ClientNotFound c) {
-            App.showAlert("Erro de Login", "Cliente não encontrado.");
+            App.showAlert("Erro de Login", "Cliente não encontrado.", "error");
         } catch (PasswordNotTheSame p) {
-            App.showAlert("Erro de Login", "Senha incorreta.");
+            App.showAlert("Erro de Login", "Senha incorreta.", "error");
         }
 
         return null;
@@ -43,8 +43,6 @@ public class LoginService {
         if (client.getFullName().isBlank() || client.getEmail().isBlank() || client.getPassword().isBlank()) {
             return true;
         }
-        // Adicione mais verificações para outros campos obrigatórios, como CPF/CNPJ,
-        // endereço, etc.
         return false;
     }
 }
