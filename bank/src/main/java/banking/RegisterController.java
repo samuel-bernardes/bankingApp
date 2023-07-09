@@ -1,5 +1,6 @@
 package banking;
 
+import classes.Exceptions.FieldIsEmpty;
 import classes.abstractClass.Client;
 import classes.clients.LegalPerson;
 import classes.clients.NaturalPerson;
@@ -112,7 +113,13 @@ public class RegisterController {
                     fieldPasswordRegister.getText(), fieldCPF.getText());
         }
 
-        LoginService.registerUser(clientLogin);
+        try {
+
+            LoginService.registerUser(clientLogin);
+        } catch (FieldIsEmpty exception) {
+            App.showAlert("Campo vazio!", "Preencha todos campos para continuar!", "warning");
+            return;
+        }
 
         App.setRoot("login", 360, 540);
     }
